@@ -1,0 +1,107 @@
+{
+  "info": {
+    "name": "CompanyController API",
+    "_postman_id": "12345678-abcd-ef01-2345-6789abcdef00",
+    "description": "Коллекция запросов для CompanyController",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Создать компанию",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Example Company\",\n  \"budget\": 5000000,\n  \"employeeIds\": [0]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/companies",
+          "host": ["http://localhost:8080"],
+          "path": ["companies"]
+        }
+      }
+    },
+    {
+      "name": "Получить компанию по ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["http://localhost:8080"],
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить список всех компаний",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/companies",
+          "host": ["http://localhost:8080"],
+          "path": ["companies"]
+        }
+      }
+    },
+    {
+      "name": "Обновить компанию",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Company\",\n  \"budget\": 7000000,\n  \"employeeIds\": [2, 4]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["http://localhost:8080"],
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Удалить компанию",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["http://localhost:8080"],
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить все компании с сотрудниками",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/companies/with-employees",
+          "host": ["http://localhost:8080"],
+          "path": ["companies", "with-employees"]
+        }
+      }
+    },
+    {
+      "name": "Получить компанию с сотрудниками по ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/companies/with-employees/1",
+          "host": ["http://localhost:8080"],
+          "path": ["companies", "with-employees", "1"]
+        }
+      }
+    }
+  ]
+}

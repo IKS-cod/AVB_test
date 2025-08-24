@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "UserController API",
+    "_postman_id": "ef123456-7890-1234-5678-abcdef123456",
+    "description": "Коллекция запросов для UserController",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Создать пользователя",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Иванов\",\n  \"phoneNumber\": \"+79991234567\",\n  \"companyId\": 0\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/users",
+          "host": ["http://localhost:8080"],
+          "path": ["users"]
+        }
+      }
+    },
+    {
+      "name": "Получить пользователя по ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/users/1",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить всех пользователей",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/users",
+          "host": ["http://localhost:8080"],
+          "path": ["users"]
+        }
+      }
+    },
+    {
+      "name": "Обновить пользователя по ID",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Пётр\",\n  \"lastName\": \"Петров\",\n  \"phoneNumber\": \"+79997654321\",\n  \"companyId\": 2\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/users/1",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "1"]
+        }
+      }
+    },
+    {
+      "name": "Удалить пользователя по ID",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/users/1",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить пользователей по списку ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/users/byIds?ids=1,2,3",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "byIds"],
+          "query": [{ "key": "ids", "value": "1,2,3" }]
+        }
+      }
+    },
+    {
+      "name": "Получить всех пользователей с компаниями",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/users/with-companies",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "with-companies"]
+        }
+      }
+    },
+    {
+      "name": "Получить пользователя с компанией по ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/users/with-companies/1",
+          "host": ["http://localhost:8080"],
+          "path": ["users", "with-companies", "1"]
+        }
+      }
+    }
+  ]
+}
