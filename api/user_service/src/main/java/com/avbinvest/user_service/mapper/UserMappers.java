@@ -7,23 +7,23 @@ import com.avbinvest.user_service.dto.UserDTO;
 import com.avbinvest.user_service.dto.UserWithCompanyDTO;
 import com.avbinvest.user_service.model.User;
 import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
 @Component
 public class UserMappers {
     private final CompanyClient companyClient;
 
-    public UserMappers(CompanyClient companyClient) {
-        this.companyClient = companyClient;
-    }
-
-    public User userDtoToUser(UserCreateAndUpdateDTO userCreateAndUpdateDTO) {
-        User user = new User();
+    public void userDtoToUser(UserCreateAndUpdateDTO userCreateAndUpdateDTO, User user) {
         user.setLastName(userCreateAndUpdateDTO.getLastName());
         user.setFirstName(userCreateAndUpdateDTO.getFirstName());
         user.setPhoneNumber(userCreateAndUpdateDTO.getPhoneNumber());
         user.setCompanyId(userCreateAndUpdateDTO.getCompanyId());
-        return user;
     }
 
     public UserDTO userToUserDto(User user) {
@@ -54,6 +54,24 @@ public class UserMappers {
         }
 
         return userDTO;
+    }
+
+    public List<UserWithCompanyDTO> usersToUserWithCompanyDTOs(List<User> users) {
+        if (users == null) {
+            return Collections.emptyList();
+        }
+        return users.stream()
+                .map(this::userToUserWithCompaniesDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<UserDTO> usersListToUsersDtoList(List<User> users) {
+        if (users == null) {
+            return Collections.emptyList();
+        }
+        return users.stream()
+                .map(this::userToUserDto)
+                .collect(Collectors.toList());
     }
 
 }

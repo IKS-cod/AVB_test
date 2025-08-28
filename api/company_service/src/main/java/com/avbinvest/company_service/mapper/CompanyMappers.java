@@ -6,24 +6,23 @@ import com.avbinvest.company_service.dto.CompanyDTO;
 import com.avbinvest.company_service.dto.CompanyWithEmployeesDTO;
 import com.avbinvest.company_service.dto.UserDTO;
 import com.avbinvest.company_service.model.Company;
+import com.avbinvest.company_service.model.UserPage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
 public class CompanyMappers {
     private final UserClient userClient;
 
-    public CompanyMappers(UserClient userClient) {
-        this.userClient = userClient;
-    }
-
-    public Company companyDtoToCompany(CompanyCreateAndUpdateDTO companyCreateAndUpdateDTO) {
-        Company company = new Company();
+    public void companyDtoToCompany(CompanyCreateAndUpdateDTO companyCreateAndUpdateDTO, Company company) {
         company.setName(companyCreateAndUpdateDTO.getName());
         company.setEmployeeIds(companyCreateAndUpdateDTO.getEmployeeIds());
         company.setBudget(companyCreateAndUpdateDTO.getBudget());
-        return company;
     }
 
     public CompanyDTO companyToCompanyDto(Company company) {
@@ -35,14 +34,38 @@ public class CompanyMappers {
         return companyDTO;
     }
 
-    public CompanyWithEmployeesDTO companyToCompanyWithEmployeesDTO(Company company) {
+    public CompanyWithEmployeesDTO companyToCompanyWithEmployeesDTO(Company company, int page, int size) {
         CompanyWithEmployeesDTO companyDTO = new CompanyWithEmployeesDTO();
-        List<UserDTO> users = userClient.getUsersByIds(company.getEmployeeIds());
+        UserPage userPage = userClient.getUsersByIds(company.getEmployeeIds(), page, size);
+        List<UserDTO> users = userPage.getContent();
+
         companyDTO.setId(company.getId());
         companyDTO.setName(company.getName());
         companyDTO.setEmployees(users);
         companyDTO.setBudget(company.getBudget());
+
         return companyDTO;
     }
+
+    public List<CompanyWithEmployeesDTO> companiesListToCompanyWithEmployeesDTOList(List<Company> companies, int page, int size) {
+        if (companies == null) {
+            return Collections.emptyList();
+        }
+        return companies.stream()
+                .map(company -> companyToCompanyWithEmployeesDTO(company, page, size))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<CompanyDTO> companiesListToCompanyDtoList(List<Company> companies) {
+        if (companies == null) {
+            return Collections.emptyList();
+        }
+        return companies.stream()
+                .map(this::companyToCompanyDto)
+                .collect(Collectors.toList());
+    }
+
+
 
 }

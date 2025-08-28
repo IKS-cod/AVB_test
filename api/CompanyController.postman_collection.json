@@ -11,18 +11,17 @@
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"name\": \"Example Company\",\n  \"budget\": 5000000,\n  \"employeeIds\": [0]\n}"
+          "raw": "{\n  \"name\": \"Example Company\",\n  \"budget\": 5000000,\n  \"employeeIds\": []\n}"
         },
         "url": {
           "raw": "http://localhost:8080/companies",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["companies"]
         }
       }
@@ -31,21 +30,34 @@
       "name": "Получить компанию по ID",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
           "raw": "http://localhost:8080/companies/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["companies", "1"]
         }
       }
     },
     {
-      "name": "Получить список всех компаний",
+      "name": "Получить список всех компаний с пагинацией",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/companies",
-          "host": ["http://localhost:8080"],
-          "path": ["companies"]
+          "raw": "http://localhost:8080/companies?page=0&size=10&sort=name,asc",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "name,asc" }
+          ]
         }
       }
     },
@@ -54,10 +66,8 @@
       "request": {
         "method": "PUT",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
@@ -65,7 +75,8 @@
         },
         "url": {
           "raw": "http://localhost:8080/companies/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["companies", "1"]
         }
       }
@@ -74,32 +85,55 @@
       "name": "Удалить компанию",
       "request": {
         "method": "DELETE",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
           "raw": "http://localhost:8080/companies/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["companies", "1"]
         }
       }
     },
     {
-      "name": "Получить все компании с сотрудниками",
+      "name": "Получить все компании с сотрудниками с пагинацией",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/companies/with-employees",
-          "host": ["http://localhost:8080"],
-          "path": ["companies", "with-employees"]
+          "raw": "http://localhost:8080/companies/with-employees?page=0&size=10&sort=name,asc&employeesPage=0&employeesSize=5",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "with-employees"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "name,asc" },
+            { "key": "employeesPage", "value": "0" },
+            { "key": "employeesSize", "value": "5" }
+          ]
         }
       }
     },
     {
-      "name": "Получить компанию с сотрудниками по ID",
+      "name": "Получить компанию с сотрудниками по ID с пагинацией сотрудников",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/companies/with-employees/1",
-          "host": ["http://localhost:8080"],
-          "path": ["companies", "with-employees", "1"]
+          "raw": "http://localhost:8080/companies/with-employees/1?employeesPage=0&employeesSize=5",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "with-employees", "1"],
+          "query": [
+            { "key": "employeesPage", "value": "0" },
+            { "key": "employeesSize", "value": "5" }
+          ]
         }
       }
     }

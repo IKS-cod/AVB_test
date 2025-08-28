@@ -11,7 +11,8 @@
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Content-Type", "value": "application/json" }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
@@ -19,7 +20,8 @@
         },
         "url": {
           "raw": "http://localhost:8080/users",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users"]
         }
       }
@@ -28,21 +30,34 @@
       "name": "Получить пользователя по ID",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
           "raw": "http://localhost:8080/users/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users", "1"]
         }
       }
     },
     {
-      "name": "Получить всех пользователей",
+      "name": "Получить всех пользователей с пагинацией",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/users",
-          "host": ["http://localhost:8080"],
-          "path": ["users"]
+          "raw": "http://localhost:8080/users?page=0&size=10&sort=firstName,asc",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["users"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "firstName,asc" }
+          ]
         }
       }
     },
@@ -51,7 +66,8 @@
       "request": {
         "method": "PUT",
         "header": [
-          { "key": "Content-Type", "value": "application/json" }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
@@ -59,7 +75,8 @@
         },
         "url": {
           "raw": "http://localhost:8080/users/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users", "1"]
         }
       }
@@ -68,33 +85,55 @@
       "name": "Удалить пользователя по ID",
       "request": {
         "method": "DELETE",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
           "raw": "http://localhost:8080/users/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users", "1"]
         }
       }
     },
     {
-      "name": "Получить пользователей по списку ID",
+      "name": "Получить пользователей по списку ID с пагинацией",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/users/byIds?ids=1,2,3",
-          "host": ["http://localhost:8080"],
+          "raw": "http://localhost:8080/users/byIds?ids=1,2,3&page=0&size=10&sort=lastName,asc",
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users", "byIds"],
-          "query": [{ "key": "ids", "value": "1,2,3" }]
+          "query": [
+            { "key": "ids", "value": "1,2,3" },
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "lastName,asc" }
+          ]
         }
       }
     },
     {
-      "name": "Получить всех пользователей с компаниями",
+      "name": "Получить всех пользователей с компаниями с пагинацией",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
-          "raw": "http://localhost:8080/users/with-companies",
-          "host": ["http://localhost:8080"],
-          "path": ["users", "with-companies"]
+          "raw": "http://localhost:8080/users/with-companies?page=0&size=10&sort=firstName,asc",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["users", "with-companies"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "firstName,asc" }
+          ]
         }
       }
     },
@@ -102,9 +141,13 @@
       "name": "Получить пользователя с компанией по ID",
       "request": {
         "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
         "url": {
           "raw": "http://localhost:8080/users/with-companies/1",
-          "host": ["http://localhost:8080"],
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["users", "with-companies", "1"]
         }
       }

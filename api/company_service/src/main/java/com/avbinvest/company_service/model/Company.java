@@ -1,10 +1,15 @@
 package com.avbinvest.company_service.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "companies")
 public class Company {
@@ -19,55 +24,16 @@ public class Company {
     @ElementCollection
     private List<Long> employeeIds;
 
-    public Company() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Long budget) {
-        this.budget = budget;
-    }
-
-    public List<Long> getEmployeeIds() {
-        return employeeIds;
-    }
-
-    public void setEmployeeIds(List<Long> employeeIds) {
-        this.employeeIds = employeeIds;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Company)) return false;
-        Company company = (Company) o;
-        return Objects.equals(id, company.id) &&
-                Objects.equals(name, company.name) &&
-                Objects.equals(budget, company.budget) &&
-                Objects.equals(employeeIds, company.employeeIds);
+        if (!(o instanceof Company company)) return false;
+        return Objects.equals(id, company.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, budget, employeeIds);
+        return Objects.hash(id);
     }
 
     @Override
