@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: company-service
+          uri: lb://company-service
+          predicates:
+            - Path=/companies/**
+          filters:
+            - RewritePath=/companies/(?<remaining>.*), /companies/${remaining}
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+          filters:
+            - RewritePath=/users/(?<remaining>.*), /users/${remaining}
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+  main:
+    web-application-type: reactive
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+server:
+  port: 8080
+

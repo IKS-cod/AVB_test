@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "CompanyController API",
+    "_postman_id": "12345678-abcd-ef01-2345-6789abcdef00",
+    "description": "Коллекция запросов для CompanyController",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Создать компанию",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Example Company\",\n  \"budget\": 5000000,\n  \"employeeIds\": []\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/companies",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies"]
+        }
+      }
+    },
+    {
+      "name": "Получить компанию по ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить список всех компаний с пагинацией",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/companies?page=0&size=10&sort=name,asc",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "name,asc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Обновить компанию",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Company\",\n  \"budget\": 7000000,\n  \"employeeIds\": [2, 4]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Удалить компанию",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/companies/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "1"]
+        }
+      }
+    },
+    {
+      "name": "Получить все компании с сотрудниками с пагинацией",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/companies/with-employees?page=0&size=10&sort=name,asc&employeesPage=0&employeesSize=5",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "with-employees"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "10" },
+            { "key": "sort", "value": "name,asc" },
+            { "key": "employeesPage", "value": "0" },
+            { "key": "employeesSize", "value": "5" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Получить компанию с сотрудниками по ID с пагинацией сотрудников",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/companies/with-employees/1?employeesPage=0&employeesSize=5",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["companies", "with-employees", "1"],
+          "query": [
+            { "key": "employeesPage", "value": "0" },
+            { "key": "employeesSize", "value": "5" }
+          ]
+        }
+      }
+    }
+  ]
+}

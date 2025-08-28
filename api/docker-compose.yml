@@ -1,0 +1,93 @@
+services:
+
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka_service/Dockerfile
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      SPRING_DATASOURCE_INITIALIZE: "false"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+    restart: unless-stopped
+
+
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway_service/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_INITIALIZE: "false"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+    depends_on:
+      - eureka-server
+    restart: unless-stopped
+
+  company-service:
+    build:
+      context: .
+      dockerfile: company_service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://company-db:5432/companydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: example
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      eureka_client_service_url_defaultZone: http://eureka-server:8761/eureka/
+    depends_on:
+      - company-db
+      - eureka-server
+
+    restart: unless-stopped
+
+  user-service:
+    build:
+      context: .
+      dockerfile: user_service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/userdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: example
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      eureka_client_service_url_defaultZone: http://eureka-server:8761/eureka/
+
+    depends_on:
+      - user-db
+      - eureka-server
+
+    restart: unless-stopped
+
+  company-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: companydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    volumes:
+      - companydb-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+  user-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    volumes:
+      - userdb-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    restart: unless-stopped
+
+volumes:
+  companydb-data:
+  userdb-data:

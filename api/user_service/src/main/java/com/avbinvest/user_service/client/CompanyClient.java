@@ -1,0 +1,14 @@
+package com.avbinvest.user_service.client;
+
+import com.avbinvest.user_service.dto.CompanyDTO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "company-service")
+public interface CompanyClient {
+    @GetMapping("/companies/{id}")
+    CompanyDTO getCompanyById(@PathVariable("id") Long id);
+
+}
+
